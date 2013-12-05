@@ -50,6 +50,12 @@ class SieveConnect < Formula
   end
 
   def patches
+    if build.head? then
+      system "ln", "-s", "/Library/Caches/Homebrew/sieve-connect--git/.git", ".git"
+      system "git", "fetch", "--depth=20"
+      system "make", "sieve-connect.pl", "man"
+    end
+
     DATA if not build.include? "enable-gssapi"
   end
 
