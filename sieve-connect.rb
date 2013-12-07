@@ -11,11 +11,17 @@ class SieveConnect < Formula
 
   option 'enable-gssapi', 'Allow use of GSSAPI Perl modules (crashes Perl on MacOS)'
   option 'disable-readline', 'Avoid readline dependency'
+  option 'unbundle-publicsuffix', 'Do not pull in our own copy of Mozilla::PublicSuffix'
 
   resource 'Term::ReadLine::Gnu' do
     url 'http://www.cpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-1.20.tar.gz'
     sha1 '23f2562c436c09e0d6ca85e135727d73bfdb18ea'
   end if not build.include? 'disable-readline'
+
+  resource 'Mozilla::PublicSuffix' do
+    url 'http://www.cpan.org/authors/id/R/RS/RSIMOES/Mozilla-PublicSuffix-v0.1.16.tar.gz'
+    sha1 'c8440920955373317c0b31b5607385c003d2ef3a'
+  end if not build.include? 'unbundle-publicsuffix'
 
   depends_on 'Readline' if not build.include? "disable-readline"
 
@@ -25,16 +31,26 @@ class SieveConnect < Formula
   depends_on 'Net::DNS' => :perl
   depends_on 'Term::ReadKey' => :perl
 
-  # We let the user install this outside of Homebrew
-  depends_on 'Mozilla::PublicSuffix' => [:perl, :recommended]
+  # I wanted: depends_on 'Mozilla::PublicSuffix' => [:perl, :recommended]
+  # We could let the user install this outside of Homebrew, but unfortunately
+  # :perl and :recommended do not play together and it becomes a hard error.
+  # Better to just bundle it ourselves.  If the user unbundles, we'll still
+  # use it if available at runtime.
 
-  # but for Term::ReadLine::Gnu, it won't install by default because it
+  # For Term::ReadLine::Gnu, it won't install by default because it
   # fails against the replacement libedit sourced libraries provided as
   # part of MacOS base.  Thus we explicitly depend upon 'Readline' above
   # and install the Perl as a resource, so that Homebrew can find the
   # dependencies for us.
 
   def install
+    resource('Mozilla::PublicSuffix').stage do
+      system "sh", "-c", "PERL_MM_USE_DEFAULT=t perl Build.PL --install_base=#{libexec}"
+      system "./Build"
+      system "./Build", "test"
+      system "./Build", "install"
+    end if not build.include? 'unbundle-publicsuffix'
+
     resource('Term::ReadLine::Gnu').stage do
       system "perl", "Makefile.PL", "INSTALL_BASE=#{libexec}"
       system "make"
@@ -68,8 +84,7 @@ class SieveConnect < Formula
   test do
     # We are a Perl script, but a full test requires a server.
     # So settle for checking that dependencies are met.
-    system "#{bin}/sieve-connect", "--version"
-  end
+    system "#{bin}/sieve-connect", "--version" end
 end
 
 __END__
