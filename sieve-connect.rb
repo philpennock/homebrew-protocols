@@ -6,7 +6,7 @@ class SieveConnect < Formula
   homepage 'http://people.spodhuis.org/phil.pennock/software/'
   url 'http://people.spodhuis.org/phil.pennock/software/sieve-connect-0.87.tar.bz2'
   mirror 'https://github.com/philpennock/sieve-connect/releases/download/v0.87/sieve-connect-0.87.tar.bz2'
-  sha1 'b52235d21202dfa1300b32000308c7233f4f63c2'
+  sha256 'e3de80ab34994de0277fc7bf53b7c08e82db1a1f2762ddac4311d8191cea6c49'
   head 'https://github.com/philpennock/sieve-connect.git'
 
   option 'enable-gssapi', 'Allow use of GSSAPI Perl modules (crashes Perl on MacOS)'
@@ -15,12 +15,12 @@ class SieveConnect < Formula
 
   resource 'Term::ReadLine::Gnu' do
     url 'http://www.cpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-1.20.tar.gz'
-    sha1 '23f2562c436c09e0d6ca85e135727d73bfdb18ea'
+    sha256 '25da93084b57467cf24b85be557b07ade4af03776b8b2d5369d4d76b179edb01'
   end if not build.include? 'disable-readline'
 
   resource 'Mozilla::PublicSuffix' do
     url 'http://www.cpan.org/authors/id/R/RS/RSIMOES/Mozilla-PublicSuffix-v0.1.16.tar.gz'
-    sha1 'c8440920955373317c0b31b5607385c003d2ef3a'
+    sha256 '33228acdd7c084f95906c74b4d860af00b7e5237c4467966fe9354e06d169330'
   end if not build.include? 'unbundle-publicsuffix'
 
   depends_on 'Readline' if not build.include? "disable-readline"
