@@ -52,7 +52,9 @@ class SieveConnect < Formula
     end if not build.include? 'unbundle-publicsuffix'
 
     resource('Term::ReadLine::Gnu').stage do
-      system "perl", "Makefile.PL", "INSTALL_BASE=#{libexec}"
+      # At some point, the keg for readline from brew got built "x86_64"-only, not dual x86_64/i386,
+      # which breaks the build here
+      system "env", "ARCHFLAGS=-arch x86_64", "perl", "Makefile.PL", "INSTALL_BASE=#{libexec}"
       system "make"
       system "make", "install"
     end if not build.include? 'disable-readline'
