@@ -14,12 +14,12 @@ class SieveConnect < Formula
   option 'unbundle-publicsuffix', 'Do not pull in our own copy of Mozilla::PublicSuffix'
 
   resource 'Term::ReadLine::Gnu' do
-    url 'http://www.cpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-1.34.tar.gz'
+    url 'https://www.cpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-1.34.tar.gz'
     sha256 'a965fd0601bea84cb65e0c5e6a1eb3469fe2d99772be235faccbc49c57edf6cd'
   end if not build.include? 'disable-readline'
 
   resource 'Mozilla::PublicSuffix' do
-    url 'http://www.cpan.org/authors/id/R/RS/RSIMOES/Mozilla-PublicSuffix-v1.0.0.tar.gz'
+    url 'https://www.cpan.org/authors/id/R/RS/RSIMOES/Mozilla-PublicSuffix-v1.0.0.tar.gz'
     sha256 '8185ca687ad1c51e18cb472831f80160d6432376a06a19f864d617147b003dee'
   end if not build.include? 'unbundle-publicsuffix'
 
