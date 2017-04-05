@@ -3,10 +3,10 @@ require 'formula'
 class SieveConnect < Formula
   # no dedicated homepage for it (yet), just a mention on a list of software
   # from the author (me)
-  homepage 'http://people.spodhuis.org/phil.pennock/software/'
-  url 'http://people.spodhuis.org/phil.pennock/software/sieve-connect-0.88.tar.bz2'
-  mirror 'https://github.com/philpennock/sieve-connect/releases/download/v0.88/sieve-connect-0.88.tar.bz2'
-  sha256 'b8b0146120d76de7407017573d695680b9cae5fc4d9974f4a7cbf166328a3872'
+  homepage 'https://people.spodhuis.org/phil.pennock/software/'
+  url 'https://people.spodhuis.org/phil.pennock/software/sieve-connect-0.89.tar.bz2'
+  mirror 'https://github.com/philpennock/sieve-connect/releases/download/v0.89/sieve-connect-0.89.tar.bz2'
+  sha256 '6d8962516458a27d4d904cfb370db01ca7e495e61c966f236ba6b65f5b4caa5f'
   head 'https://github.com/philpennock/sieve-connect.git'
 
   option 'enable-gssapi', 'Allow use of GSSAPI Perl modules (crashes Perl on MacOS)'
@@ -14,8 +14,8 @@ class SieveConnect < Formula
   option 'unbundle-publicsuffix', 'Do not pull in our own copy of Mozilla::PublicSuffix'
 
   resource 'Term::ReadLine::Gnu' do
-    url 'https://www.cpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-1.34.tar.gz'
-    sha256 'a965fd0601bea84cb65e0c5e6a1eb3469fe2d99772be235faccbc49c57edf6cd'
+    url 'https://www.cpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-1.35.tar.gz'
+    sha256 '575d32d4ab67cd656f314e8d0ee3d45d2491078f3b2421e520c4273e92eb9125'
   end if not build.include? 'disable-readline'
 
   resource 'Mozilla::PublicSuffix' do
