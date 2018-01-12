@@ -6,13 +6,13 @@ class Dumpasn1 < Formula
   # Current: FreeBSD defines as 20130805
   homepage 'http://www.cs.auckland.ac.nz/~pgut001/'
 
-  version "20140805"
+  version "20170309"
   url 'http://www.cs.auckland.ac.nz/~pgut001/dumpasn1.c'
-  sha256 'd95b0af449e403ac3b4d95df61d5330e324a3076f973569a83ffd1fc0bd095e3'
+  sha256 '4b7c7d92c9593ee58c81019b2c3b7a7ee7450b733d38f196ce7560ee0e34d6b1'
   resource 'cfg' do
-    version "20140805"
+    version "20140417"
     url 'http://www.cs.auckland.ac.nz/~pgut001/dumpasn1.cfg'
-    sha256 'd368f8c14f8ca9df5151ca2ed550793393c0a7a0f78fe160c886a7aad9cdd75b'
+    sha256 '8b0c25bb3a4608b4678d25c56965e26e7780c73715032e447a506514a0815201'
   end
 
   def install
