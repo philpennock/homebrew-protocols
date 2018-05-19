@@ -12,7 +12,11 @@ class SieveConnect < Formula
 
   head "https://github.com/philpennock/sieve-connect.git"
 
-  option "with-gssapi", "Allow use of GSSAPI Perl modules (crashes Perl on MacOS)"
+  # The crashing comes from bugs in the GSSAPI code; there's a fix in the
+  # bug-tracker for the project, but there's been no release in a few years.
+  # If you locally fix the GSSAPI module, then you can have stable GSSAPI in
+  # Perl on macOS, but that's not the default.
+  option "with-gssapi", "Allow use of GSSAPI Perl modules (can crash Perl on MacOS)"
   option "without-readline", "Avoid readline dependency"
   option "without-bundled-publicsuffix", "Do not pull in our own copy of Mozilla::PublicSuffix"
 
@@ -155,7 +159,7 @@ class SieveConnect < Formula
 
   def caveats
     s = ""
-    s += "GSSAPI modules can cause Perl interpreter crashes" if build.with? "gssapi"
+    s += "Last-published GSSAPI module can cause Perl interpreter crashes" if build.with? "gssapi"
     s
   end
 
