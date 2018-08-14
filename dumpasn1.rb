@@ -1,18 +1,33 @@
 require 'formula'
 
 class Dumpasn1 < Formula
-  # Taking checksums from FreeBSD Ports; warning: there's no versioning on
-  # master site.
-  # Current: FreeBSD defines as 20130805
+  # I originally took checksums from FreeBSD Ports;
+  # warning: there's no versioning on master site.
   homepage 'http://www.cs.auckland.ac.nz/~pgut001/'
 
-  version "20170309"
+  # Originally: FreeBSD defines as 20130805
+  # Diffed and reviewed since then.
+
+  # 2018-08-14 note: report of checksum failures, dumpasn1.c still claims to be
+  # 20170309 but has lost extraneous line-trailing whitespace and inserted one
+  # other name into the credits list relative to the version I had cached.
+  #
+  # Since dumpasn1.cfg had its first update in years from 20140417 to 20180611
+  # and any future update to dumpasn1.c will have a newer datestamp, reuse the
+  # .cfg datestamp as the version for .c here.  They were _probably_ updated on
+  # the web-server at the same time and even if they weren't, this is "good
+  # enough given the alternatives".
+  #
+  # dumpasn1.cfg's changes were substantive; mostly additions, but also some
+  # nit fixes for GOST entries.
+  #
+  version "20180611"
   url 'http://www.cs.auckland.ac.nz/~pgut001/dumpasn1.c'
-  sha256 '4b7c7d92c9593ee58c81019b2c3b7a7ee7450b733d38f196ce7560ee0e34d6b1'
+  sha256 'd42b7fb8457b9282ee341429baaaaf0ef7b2310cb28fcf2fc41914e07e8b1370'
   resource 'cfg' do
-    version "20140417"
+    version "20180611"
     url 'http://www.cs.auckland.ac.nz/~pgut001/dumpasn1.cfg'
-    sha256 '8b0c25bb3a4608b4678d25c56965e26e7780c73715032e447a506514a0815201'
+    sha256 '824d64cef7340de0f92cd4937217ba5da6ab44294b9b8593185b32b12f2e0736'
   end
 
   def install
