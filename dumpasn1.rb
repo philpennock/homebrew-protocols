@@ -3,7 +3,10 @@ require 'formula'
 class Dumpasn1 < Formula
   # I originally took checksums from FreeBSD Ports;
   # warning: there's no versioning on master site.
-  homepage 'http://www.cs.auckland.ac.nz/~pgut001/'
+  homepage 'https://www.cs.auckland.ac.nz/~pgut001/'
+
+  # bump rev of 20180611 to 1 to pick up 20180614 cfg file
+  revision 1
 
   # Originally: FreeBSD defines as 20130805
   # Diffed and reviewed since then.
@@ -21,13 +24,17 @@ class Dumpasn1 < Formula
   # dumpasn1.cfg's changes were substantive; mostly additions, but also some
   # nit fixes for GOST entries.
   #
+  # 2018-10-24 note: report of checksum failure, the .cfg file still claims
+  # 20180611 but had a modified OID arc; webserver claims last modified
+  # 20180614 so that is what we'll use.
+  #
   version "20180611"
-  url 'http://www.cs.auckland.ac.nz/~pgut001/dumpasn1.c'
+  url 'https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.c'
   sha256 'd42b7fb8457b9282ee341429baaaaf0ef7b2310cb28fcf2fc41914e07e8b1370'
   resource 'cfg' do
-    version "20180611"
-    url 'http://www.cs.auckland.ac.nz/~pgut001/dumpasn1.cfg'
-    sha256 '824d64cef7340de0f92cd4937217ba5da6ab44294b9b8593185b32b12f2e0736'
+    version "20180614"
+    url 'https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.cfg'
+    sha256 '94245ed185e2bdb94b00ba031bb67ab83980748626f532ee4565df886468f196'
   end
 
   def install
