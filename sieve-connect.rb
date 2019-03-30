@@ -5,10 +5,9 @@ class SieveConnect < Formula
   # from the author (me)
   desc "Client for ManageSieve protocol for mail server Sieve scripts"
   homepage "https://people.spodhuis.org/phil.pennock/software/"
-  url "https://people.spodhuis.org/phil.pennock/software/sieve-connect-0.89.tar.bz2"
-  mirror "https://github.com/philpennock/sieve-connect/releases/download/v0.89/sieve-connect-0.89.tar.bz2"
-  sha256 "6d8962516458a27d4d904cfb370db01ca7e495e61c966f236ba6b65f5b4caa5f"
-  revision 1
+  url "https://people.spodhuis.org/phil.pennock/software/sieve-connect-0.90.tar.bz2"
+  mirror "https://github.com/philpennock/sieve-connect/releases/download/v0.90/sieve-connect-0.90.tar.bz2"
+  sha256 "4a188ba50009170b5a7a51cbd0dbaab972eb1e42a3ad7c2d8d22fb63f2f77603"
 
   head "https://github.com/philpennock/sieve-connect.git"
 
@@ -26,8 +25,11 @@ class SieveConnect < Formula
 
   if build.with? "readline"
     resource "Term::ReadLine::Gnu" do
-      url "https://www.cpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-1.35.tar.gz"
-      sha256 "575d32d4ab67cd656f314e8d0ee3d45d2491078f3b2421e520c4273e92eb9125"
+      url "https://www.cpan.org/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-1.36.tar.gz"
+      sha256 "9a08f7a4013c9b865541c10dbba1210779eb9128b961250b746d26702bab6925"
+      # Initial blind trust in: 1.35
+      # manual skim review of diffs between revisions before accepting update for:
+      #   1.35 -> 1.36
     end
   end
 
@@ -47,29 +49,43 @@ class SieveConnect < Formula
   # Net::SSLeay first, so IO::Socket::SSL finds it; need our own to actually
   # link against the Brew OpenSSL.
   resource "Net::SSLeay" do
-    url "https://www.cpan.org/authors/id/M/MI/MIKEM/Net-SSLeay-1.84.tar.gz"
-    sha256 "823ec3cbb428309d6a9e56f362a9300693ce3215b7fede109adb7be361fff177"
+    url "https://www.cpan.org/authors/id/M/MI/MIKEM/Net-SSLeay-1.85.tar.gz"
+    sha256 "9d8188b9fb1cae3bd791979c20554925d5e94a138d00414f1a6814549927b0c8"
+    # Initial blind trust in: 1.84
+    # manual skim review of diffs between revisions before accepting update for:
+    #   1.84 -> 1.85
   end
   #
   resource "Authen::SASL" do
     url "https://www.cpan.org/authors/id/G/GB/GBARR/Authen-SASL-2.16.tar.gz"
     sha256 "6614fa7518f094f853741b63c73f3627168c5d3aca89b1d02b1016dc32854e09"
+    # Initial blind trust in: 2.16
   end
   resource "IO::Socket::INET6" do
     url "https://www.cpan.org/authors/id/S/SH/SHLOMIF/IO-Socket-INET6-2.72.tar.gz"
     sha256 "85e020fa179284125fc1d08e60a9022af3ec1271077fe14b133c1785cdbf1ebb"
+    # Initial blind trust in: 2.72
   end
   resource "IO::Socket::SSL" do
-    url "https://www.cpan.org/authors/id/S/SU/SULLR/IO-Socket-SSL-2.052.tar.gz"
-    sha256 "e4897a9b17cb18a3c44aa683980d52cef534cdfcb8063d6877c879bfa2f26673"
+    url "https://www.cpan.org/authors/id/S/SU/SULLR/IO-Socket-SSL-2.066.tar.gz"
+    sha256 "0d47064781a545304d5dcea5dfcee3acc2e95a32e1b4884d80505cde8ee6ebcd"
+    # Initial blind trust in: 2.052
+    # manual skim review of diffs between revisions before accepting update for:
+    #   2.052 -> 2.066
   end
   resource "Net::DNS" do
-    url "https://www.cpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-1.14.tar.gz"
-    sha256 "83c38a594eeb2c85d66e60047a0f5b403f34bd92a5d13606f02e828d450299fc"
+    url "https://www.cpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-1.20.tar.gz"
+    sha256 "7fd9692b687253baa8f2eb639f1dd7ff9c77fddd67167dc59b400bd25e4ce01b"
+    # Initial blind trust in: 1.14
+    # manual skim review of diffs between revisions before accepting update for:
+    #   1.14 -> 1.20
   end
   resource "Term::ReadKey" do
-    url "https://www.cpan.org/authors/id/J/JS/JSTOWE/TermReadKey-2.37.tar.gz"
-    sha256 "4a9383cf2e0e0194668fe2bd546e894ffad41d556b41d2f2f577c8db682db241"
+    url "https://www.cpan.org/authors/id/J/JS/JSTOWE/TermReadKey-2.38.tar.gz"
+    sha256 "5a645878dc570ac33661581fbb090ff24ebce17d43ea53fd22e105a856a47290"
+    # Initial blind trust in: 2.37
+    # manual skim review of diffs between revisions before accepting update for:
+    #   2.37 -> 2.38
   end
 
   # For Term::ReadLine::Gnu, it won't install by default because it
