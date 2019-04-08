@@ -1,5 +1,3 @@
-require "formula"
-
 class SieveConnect < Formula
   # no dedicated homepage for it (yet), just a mention on a list of software
   # from the author (me)
@@ -12,10 +10,19 @@ class SieveConnect < Formula
   head "https://github.com/philpennock/sieve-connect.git"
 
   # The crashing comes from bugs in the GSSAPI code; there's a fix in the
-  # bug-tracker for the project, but there's been no release in a few years.
+  # bug-tracker for the GSSAPI project, but there's been no release in a few years.
   # If you locally fix the GSSAPI module, then you can have stable GSSAPI in
   # Perl on macOS, but that's not the default.
+  #
+  # The upstream sieve-connect package is multi-OS and GSSAPI support is a core
+  # feature, so it's not getting disabled by default there.  Patching for a
+  # default-broken platform belongs in the package manager used, and is why the
+  # upstream author provides this Formula.
+  #
+  # But sieve-connect does provide a blacklist mechanism.
+  # So we patch.
   option "with-gssapi", "Allow use of GSSAPI Perl modules (can crash Perl on MacOS)"
+
   option "without-readline", "Avoid readline dependency"
   option "without-bundled-publicsuffix", "Do not pull in our own copy of Mozilla::PublicSuffix"
 
@@ -55,17 +62,19 @@ class SieveConnect < Formula
     # manual skim review of diffs between revisions before accepting update for:
     #   1.84 -> 1.85
   end
-  #
+
   resource "Authen::SASL" do
     url "https://www.cpan.org/authors/id/G/GB/GBARR/Authen-SASL-2.16.tar.gz"
     sha256 "6614fa7518f094f853741b63c73f3627168c5d3aca89b1d02b1016dc32854e09"
     # Initial blind trust in: 2.16
   end
+
   resource "IO::Socket::INET6" do
     url "https://www.cpan.org/authors/id/S/SH/SHLOMIF/IO-Socket-INET6-2.72.tar.gz"
     sha256 "85e020fa179284125fc1d08e60a9022af3ec1271077fe14b133c1785cdbf1ebb"
     # Initial blind trust in: 2.72
   end
+
   resource "IO::Socket::SSL" do
     url "https://www.cpan.org/authors/id/S/SU/SULLR/IO-Socket-SSL-2.066.tar.gz"
     sha256 "0d47064781a545304d5dcea5dfcee3acc2e95a32e1b4884d80505cde8ee6ebcd"
@@ -73,6 +82,7 @@ class SieveConnect < Formula
     # manual skim review of diffs between revisions before accepting update for:
     #   2.052 -> 2.066
   end
+
   resource "Net::DNS" do
     url "https://www.cpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-1.20.tar.gz"
     sha256 "7fd9692b687253baa8f2eb639f1dd7ff9c77fddd67167dc59b400bd25e4ce01b"
@@ -80,6 +90,7 @@ class SieveConnect < Formula
     # manual skim review of diffs between revisions before accepting update for:
     #   1.14 -> 1.20
   end
+
   resource "Term::ReadKey" do
     url "https://www.cpan.org/authors/id/J/JS/JSTOWE/TermReadKey-2.38.tar.gz"
     sha256 "5a645878dc570ac33661581fbb090ff24ebce17d43ea53fd22e105a856a47290"
@@ -93,6 +104,25 @@ class SieveConnect < Formula
   # part of MacOS base.  Thus we explicitly depend upon 'Readline' above
   # and install the Perl as a resource, so that Homebrew can find the
   # dependencies for us.
+
+  ### PATCHING
+  # I tried to transition to `head do // patch do //` but the steps were
+  # run even for non-head install for audit, causing everything to fall apart.
+  # So either we drop support for patching to enable git operations, thus
+  # drop HEAD support, or we stick to the old API.
+  # We stick to the old API.  When Homebrew removes it, we'll drop HEAD
+  # support.
+  def patches
+    if build.head?
+      # auto-versioning logic which is normally run in a make step
+      # for distribution preparation.
+      ln_s "/Library/Caches/Homebrew/sieve-connect--git/.git", ".git"
+      system "git", "fetch", "--depth=20"
+      system "make", "sieve-connect.pl", "man"
+    end
+
+    :DATA if build.without? "gssapi"
+  end
 
   def install
     # The approach to vendoring of Perl modules used here is that
@@ -154,23 +184,9 @@ class SieveConnect < Formula
       /(# No user-serviceable parts below)/,
       '\1'"\nuse lib '#{libexec}/lib/perl5';"
 
-    #before = (libexec/"bin").children
     system "make", "PERL5LIB=#{ENV["PERL5LIB"]}", "PREFIX=#{prefix}", "MANDIR=share/man", "install"
-    #after = (libexec/"bin").children
 
-    #bin_to_link = after - before
-    #bin.install bin_to_link
     bin.env_script_all_files(libexec/"bin", :PERL5LIB => ENV["PERL5LIB"])
-  end
-
-  def patches
-    if build.head?
-      ln_s "/Library/Caches/Homebrew/sieve-connect--git/.git", ".git"
-      system "git", "fetch", "--depth=20"
-      system "make", "sieve-connect.pl", "man"
-    end
-
-    DATA if build.without? "gssapi"
   end
 
   def caveats
