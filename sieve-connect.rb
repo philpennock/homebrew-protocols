@@ -9,6 +9,32 @@ class SieveConnect < Formula
 
   head "https://github.com/philpennock/sieve-connect.git"
 
+  unless OS.mac?
+    raise "This formula only supports macOS, sorry."
+  end
+  # Linuxbrew users:
+  # I can't support Linuxbrew, sorry.
+  #
+  # At present, to use this formula I got as far as:
+  #   sudo apt install libz-dev
+  #   brew install sieve-connect --without-readline --with-brew-perl
+  # and it then breaks because I need to manually add Module::Build and then
+  # probably a host of other packages to the list I need to manually maintain
+  # below, which then means I'm responsible for the security audit of those
+  # when I tell people "use this checksum".
+  #
+  # This is not viable.  Sorry, I'm not jumping through those hoops on my own
+  # time to satisfy a broken model of "every single app developer needs to
+  # manually supply checksums and code audit for each part of what's normally
+  # a system library".
+  #
+  # Brew is not suitable for installing Perl apps.  It's becoming less suitable
+  # but still just about viable on macOS and I'm tempted to pull it from this
+  # tap.  It's not viable for me on Linuxbrew at this time.
+  #
+  # Please install via OS packages, or directly from the git repo.
+
+
   # The crashing comes from bugs in the GSSAPI code; there's a fix in the
   # bug-tracker for the GSSAPI project, but there's been no release in a few years.
   # If you locally fix the GSSAPI module, then you can have stable GSSAPI in
@@ -25,6 +51,8 @@ class SieveConnect < Formula
 
   option "without-readline", "Avoid readline dependency"
   option "without-bundled-publicsuffix", "Do not pull in our own copy of Mozilla::PublicSuffix"
+
+  option "with-brew-perl", "Depend upon Brew's own Perl, not a system Perl"
 
   deprecated_option "enable-gssapi" => "with-gssapi"
   deprecated_option "disable-readline" => "without-readline"
@@ -47,9 +75,10 @@ class SieveConnect < Formula
     end
   end
 
-  # Want fixed OpenSSL with SNI support, on macOS
-  # FIXME: figure out how to auto-disable this on Linux
+  # Want fixed OpenSSL with SNI support
   depends_on "openssl"
+
+  depends_on "perl" if build.with? "brew-perl"
 
   depends_on "Readline" if build.with? "readline"
 

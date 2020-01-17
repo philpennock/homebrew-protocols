@@ -3,6 +3,10 @@ Homebrew: Protocols
 
 These formulae are for Homebrew, a package management system for MacOS.
 
+Support for non-macOS Brew is limited to non-existent, for pragmatic reasons.
+Note that `sieve-connect` is packaged for many OSes natively.
+
+
 What is here
 ------------
 
