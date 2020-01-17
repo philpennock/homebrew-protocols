@@ -47,7 +47,8 @@ class SieveConnect < Formula
     end
   end
 
-  # Want fixed OpenSSL with SNI support
+  # Want fixed OpenSSL with SNI support, on macOS
+  # FIXME: figure out how to auto-disable this on Linux
   depends_on "openssl"
 
   depends_on "Readline" if build.with? "readline"
@@ -56,11 +57,13 @@ class SieveConnect < Formula
   # Net::SSLeay first, so IO::Socket::SSL finds it; need our own to actually
   # link against the Brew OpenSSL.
   resource "Net::SSLeay" do
-    url "https://www.cpan.org/authors/id/M/MI/MIKEM/Net-SSLeay-1.85.tar.gz"
-    sha256 "9d8188b9fb1cae3bd791979c20554925d5e94a138d00414f1a6814549927b0c8"
+    url "https://www.cpan.org/authors/id/C/CH/CHRISN/Net-SSLeay-1.88.tar.gz"
+    sha256 "2000da483c8471a0b61e06959e92a6fca7b9e40586d5c828de977d3d2081cfdd"
     # Initial blind trust in: 1.84
     # manual skim review of diffs between revisions before accepting update for:
     #   1.84 -> 1.85
+    # update to 1.88 changed author MIKEM -> CHRISN, double-checked in CPAN.
+    # skimmed diff for 1.85 -> 1.88.
   end
 
   resource "Authen::SASL" do
@@ -84,11 +87,13 @@ class SieveConnect < Formula
   end
 
   resource "Net::DNS" do
-    url "https://www.cpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-1.20.tar.gz"
-    sha256 "7fd9692b687253baa8f2eb639f1dd7ff9c77fddd67167dc59b400bd25e4ce01b"
+    url "https://www.cpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-1.21.tar.gz"
+    sha256 "ddefe13b28084ffcc8f10a96b3c13c59449dbf6fc371c006d129630ea0ce767a"
     # Initial blind trust in: 1.14
     # manual skim review of diffs between revisions before accepting update for:
     #   1.14 -> 1.20
+    # manual skim review of diffs between revisions before accepting update for:
+    #   1.20 -> 1.21
   end
 
   resource "Term::ReadKey" do
