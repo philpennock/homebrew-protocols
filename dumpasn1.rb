@@ -5,8 +5,8 @@ class Dumpasn1 < Formula
   # warning: there's no versioning on master site.
   homepage 'https://www.cs.auckland.ac.nz/~pgut001/'
 
-  # bump rev of 20180611 to 1 to pick up 20180614 cfg file
-  revision 1
+  # When upstream changes the cfg file without changing the .c file
+  #revision 1
 
   # Originally: FreeBSD defines as 20130805
   # Diffed and reviewed since then.
@@ -28,13 +28,13 @@ class Dumpasn1 < Formula
   # 20180611 but had a modified OID arc; webserver claims last modified
   # 20180614 so that is what we'll use.
   #
-  version "20180611"
+  version "20191022"
   url 'https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.c'
-  sha256 'd42b7fb8457b9282ee341429baaaaf0ef7b2310cb28fcf2fc41914e07e8b1370'
+  sha256 'ba379c34d73ebf063081b760bc68b797091ec5e6b1c00052614a271119582e97'
   resource 'cfg' do
-    version "20180614"
+    version "20191022"
     url 'https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.cfg'
-    sha256 '94245ed185e2bdb94b00ba031bb67ab83980748626f532ee4565df886468f196'
+    sha256 '917f48e2e1f539c8cc9c1eb08ca4cfc9680a04ad194d47a16d89dd42551cc972'
   end
 
   def install
