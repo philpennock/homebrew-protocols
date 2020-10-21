@@ -1,6 +1,11 @@
 Homebrew: Protocols
 ===================
 
+**WARNING: UNMAINTAINED**
+
+_I no longer use macOS for a desktop/laptop OS, and do not use Homebrew on Linux, so am not in a position to test fixes to this repository._
+_Please either fork this (I will link to a maintained fork) or provide patches: I will merge, untested, sane-looking fixes._
+
 These formulae are for Homebrew, a package management system for MacOS.
 
 Support for non-macOS Brew is limited to non-existent, for pragmatic reasons.
