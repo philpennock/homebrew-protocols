@@ -34,6 +34,7 @@ class Dumpasn1 < Formula
   # SHA256 match against <https://aur.archlinux.org/packages/dumpasn1/>
   # There's some defensiveness fixes, Unicode handling fixes, time window handling, etc.
   #
+  # MAINTAINER NOTE: SEE PRIVATE GIT REPO archive/tracking/dumpasn1 FOR COMPARING HISTORICAL CODE
   version "20210531"
   url 'https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.c'
   sha256 '319a85af8d75f95f16ecb6fd8a9b59aef22a0e3798e84c830027d1bead9adaeb'
