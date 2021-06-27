@@ -28,13 +28,19 @@ class Dumpasn1 < Formula
   # 20180611 but had a modified OID arc; webserver claims last modified
   # 20180614 so that is what we'll use.
   #
-  version "20191022"
+  # 2021-06-27: files self-identify as, and last-mod-timestamp-on-server:
+  #   dumpasn1.c    20210212  2021-05-31T15:17:36Z
+  #   dumpasn1.cfg  20200407  2021-05-31T15:18:16Z
+  # SHA256 match against <https://aur.archlinux.org/packages/dumpasn1/>
+  # There's some defensiveness fixes, Unicode handling fixes, time window handling, etc.
+  #
+  version "20210531"
   url 'https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.c'
-  sha256 'ba379c34d73ebf063081b760bc68b797091ec5e6b1c00052614a271119582e97'
+  sha256 '319a85af8d75f95f16ecb6fd8a9b59aef22a0e3798e84c830027d1bead9adaeb'
   resource 'cfg' do
-    version "20191022"
+    version "20210531"
     url 'https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.cfg'
-    sha256 '917f48e2e1f539c8cc9c1eb08ca4cfc9680a04ad194d47a16d89dd42551cc972'
+    sha256 '1d02cfea8fa556281aed3911f96db517a50017eaaaded562fe6683d008bd1fac'
   end
 
   def install
