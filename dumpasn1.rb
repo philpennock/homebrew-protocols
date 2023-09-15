@@ -14,14 +14,18 @@ class Dumpasn1 < Formula
   #
   # SHA256 match against <https://aur.archlinux.org/packages/dumpasn1/>
   #
+  # 2023-09-15: spotted upstream update, .cfg only, version number within file unchanged
+  # (still claims 20230207) but the server last-mod timestamp gives us 20230629.
+  # Changes manually reviewed.
+  #
   # MAINTAINER NOTE: SEE PRIVATE GIT REPO archive/tracking/dumpasn1 FOR COMPARING HISTORICAL CODE
   version '20210422'
   url 'https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.c'
   sha256 '8ce8fdbf2e9b11d410b0ab4e44a6b3f89c27080113f051ec1054d230e050a0b8'
   resource 'cfg' do
-    version '20230207'
+    version '20230629'
     url 'https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.cfg'
-    sha256 'ed1eaafb0ad865b97738dfe0b0e5d602c76dc0cde4c0cee4cdcdd11c28f480e5'
+    sha256 '7f74c3915a3a712c104b6d65c6204d005384813086260d8516f7b6e969fba9cf'
   end
 
   def install
