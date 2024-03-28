@@ -7,7 +7,7 @@ class SieveConnect < Formula
   mirror "https://github.com/philpennock/sieve-connect/releases/download/v0.90/sieve-connect-0.90.tar.bz2"
   sha256 "4a188ba50009170b5a7a51cbd0dbaab972eb1e42a3ad7c2d8d22fb63f2f77603"
 
-  head "https://github.com/philpennock/sieve-connect.git"
+  head "https://github.com/philpennock/sieve-connect.git", branch: "main"
 
   unless OS.mac?
     raise "This formula only supports macOS, sorry."
